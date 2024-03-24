@@ -11,12 +11,39 @@ const InvoiceRepository = {
   },
   async getAllInvoices() {
     try {
-      const invoices = await Invoice.findAll();
+      const invoices = await Invoice.findAll({
+        include: [
+          {
+            model: Customer,
+            attributes: ["id", "name", "email", "phone", "city"],
+          },
+        ],
+      });
+  
+      // Fetch product details for each invoice
+      for (const invoice of invoices) {
+        const products = await Product.findAll({
+          where: { id: invoice.productIds },
+          attributes: [
+            "id",
+            "name",
+            "description",
+            "price",
+            "category",
+            "imageUrl",
+            "quantity",
+          ],
+        });
+        
+        invoice.dataValues.Products = products;
+      }
+  
       return invoices;
     } catch (error) {
       throw error;
     }
   },
+  
   async getInvoiceById(id) {
     try {
       // Fetch the invoice with associated customer

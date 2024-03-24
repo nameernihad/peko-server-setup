@@ -4,12 +4,12 @@ import CustomerRepository from "../../repository/CustomerRepository.js";
 
 export const updateCustomer = async (req, res) => {
   try {
-    const customerId = req.params.id;
+    const customerId = req.params.customerId;
     const { name, email, phone, city } = req.body;
 
     const existingCustomer = await CustomerRepository.findById(customerId);
     if (!existingCustomer) {
-      return res.status(404).json({ error: 'Customer not found' });
+      return res.status(400).json({ error: 'Customer not found' });
     }
 
     existingCustomer.name = name || existingCustomer.name;

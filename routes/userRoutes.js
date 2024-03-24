@@ -41,6 +41,7 @@ userRoute.put('/editProduct/:productId',updateProduct)
 userRoute.delete('/deleteProduct/:productId',deleteProduct)
 userRoute.get('/getAllProduct',getAllProducts)
 userRoute.get('/getProductById/:productId',getProductById)
+// userRoute.get('/getMultipleProductById',getMultipleProductById)
 
 // Invoice operations
 userRoute.post('/createInvoice',createInvoiceController)
