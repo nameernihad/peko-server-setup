@@ -14,8 +14,7 @@ const createInvoiceController = async (req, res) => {
     };
 
     const newInvoice = await InvoiceRepository.createInvoice(invoiceData);
-    console.log(newInvoice,"lknsldknflkn")
-    const invoiceWithDetails = await InvoiceRepository.getInvoiceWithDetails(newInvoice.invoiceId); 
+    const invoiceWithDetails = await InvoiceRepository.getInvoiceById(newInvoice.invoiceId); 
 
     res.status(201).json({ message: 'Invoice created successfully', invoice: invoiceWithDetails });
   } catch (error) {
